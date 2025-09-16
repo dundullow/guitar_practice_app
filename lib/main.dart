@@ -1,0 +1,95 @@
+import 'dart:ffi';
+
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Guitar Practice',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: const MyHomePage(title: 'Guitar Practice'),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key, required this.title});
+
+  final String title;
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int _counter = 0;
+
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final currentDate = DateTime.now();
+    final formattedDate = DateFormat('yyyy年MM月dd日').format(currentDate);
+
+    // 仮の開始日
+    final startDate = DateTime(2025,9,10);
+
+    // 年月日のみ比較するよう日付を揃える
+    final currentDateCompare = DateTime(currentDate.year,currentDate.month,currentDate.day);
+    final startDateCompare = DateTime(startDate.year,startDate.month,startDate.day);
+    // 練習日数（開始日を1日目として数える）
+    final practiceDayCount = currentDateCompare.difference(startDateCompare).inDays + 1;
+
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const Text('ようこそ！ギター練習管理アプリへ'),
+            const SizedBox(height: 8,),
+            Text(formattedDate,style: const TextStyle(fontSize: 20),),
+            Text('練習開始から $practiceDayCount 日目',style: const TextStyle(fontSize: 18),),
+            Text(
+              '今日のカウント: $_counter',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const SizedBox(height: 20,),  // 余白を追加
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(onPressed: (){}, child: const Text('練習開始')),
+                ElevatedButton(onPressed: (){}, child: const Text('記録確認')),
+                OutlinedButton(onPressed: (){}, child: const Text('設定')),
+              ],
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
