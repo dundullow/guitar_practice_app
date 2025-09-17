@@ -1,16 +1,30 @@
-# guitar_practice_app
+# Guitar Practice App 🎸
 
-A new Flutter project.
+Flutterで開発中のギター練習管理アプリです。  
+「毎日の練習を楽しく継続できる」ことを目標にしています。
 
-## Getting Started
+## 📱 現在の機能
+- 今日の日付を表示
+- 練習開始からの日数を表示
+- 練習時間を入力して保存（ブランチで開発中）
+- 3つの基本ボタン表示（練習開始 / 記録確認 / 設定）
 
-This project is a starting point for a Flutter application.
+## 🚀 今後の予定
+- 入力した練習時間を保存して履歴管理
+- 週ごとの練習時間をグラフ表示
+- 楽器ごとの練習に拡張（将来的にはマルチ楽器対応）
 
-A few resources to get you started if this is your first Flutter project:
+## 🛠 技術スタック
+- Flutter
+- Dart
+- intlパッケージ（日時フォーマット）
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## 💡 開発の狙い
+- 自分自身のギター練習を効率的＆楽しくしたい
+- ポートフォリオ用アプリとして機能を段階的に追加していく
+- 「小さなゴール」を積み重ねて成長を実感する
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 開発ログ
+- 2025/09/18: ビルドエラー発生、エミュレーションのiOSのダウンロード
+- 2025/09/17: 日付と日数表示を追加
+- 2025/09/16: プロジェクト新規作成、初期表示とボタンを追加
