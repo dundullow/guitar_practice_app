@@ -55,6 +55,42 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  // リセット処理本体
+  void _resetTodayPracticeMinutes() {
+    setState(() {
+      todayPracticeMinutes = 0;
+    });
+    practiceMinutesController.clear(); // 入力欄クリア
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('今日の練習時間をリセットしました')),
+    );
+  }
+
+  // 確認ダイアログを表示してからリセット実行
+  Future<void> _confirmAndReset() async {
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('リセットしますか？'),
+        content: const Text('今日の練習時間を0分に戻します。'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: const Text('キャンセル'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(ctx, true),
+            child: const Text('リセット'),
+          ),
+        ],
+      ),
+    );
+
+    if (ok == true) {
+      _resetTodayPracticeMinutes();
+    }
+  }
+
   @override
   void dispose() {
     // メモリリーク防止
@@ -129,6 +165,15 @@ class _MyHomePageState extends State<MyHomePage> {
               ElevatedButton(
                 onPressed: _saveTodayPracticeMinutes,
                 child: const Text('保存'),
+              ),
+
+              const SizedBox(height: 8),
+
+              // リセットボタン（確認ダイアログ付き）
+              OutlinedButton.icon(
+                onPressed: _confirmAndReset,
+                icon: const Icon(Icons.refresh),
+                label: const Text('リセット'),
               ),
 
               const SizedBox(height: 24),
